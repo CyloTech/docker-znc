@@ -11,7 +11,7 @@ echo '#!/usr/bin/expect -f' > /root/${RAND1}
 echo "set timeout -1
 spawn /usr/bin/znc --makepass -n
 expect {
-password {send \"${PASSWORD}\r\" ; exp_continue}
+password {send \"${ZNCPASS}\r\" ; exp_continue}
 eof exit
 }" >> /root/${RAND1}
 
@@ -33,6 +33,8 @@ eof exit
     chown -R znc:znc /znc-data
     chmod 700 /znc-data
 
+    #Tell Apex we're done installing.
+    curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST "https://api.cylo.io/v1/apps/installed/$INSTANCE_ID"
     touch /etc/app_configured
 fi
 
