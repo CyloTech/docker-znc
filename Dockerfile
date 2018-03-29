@@ -18,4 +18,6 @@ RUN chmod +x /entrypoint.sh
 
 RUN setcap cap_net_bind_service=+ep /usr/bin/znc
 
+EXPOSE 80
+
 CMD [ "/entrypoint.sh" ]
