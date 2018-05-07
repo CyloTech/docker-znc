@@ -26,6 +26,7 @@ eof exit
 
     sed -i 's/USER/'${USERNAME}'/g' /znc-data/configs/znc.conf
     sed -i 's/ZNCPASS/'${ZNCPASS}'/g' /znc-data/configs/znc.conf
+    sed -i 's/ZNCPORT/'${ZNCPORT}'/g' /znc-data/configs/znc.conf
 
     rm -rf /root/${RAND1}
     rm -rf /root/${RAND2}

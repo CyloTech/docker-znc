@@ -2,6 +2,7 @@ FROM alpine:3.7
 
 ENV USERNAME=admin
 ENV ZNCPASS=admin123
+ENV ZNCPORT=6667
 
 RUN addgroup -S znc -g 1000
 RUN adduser -D -S -h /znc-data -s /sbin/nologin -G znc znc -u 1000
