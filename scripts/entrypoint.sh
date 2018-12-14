@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+
 
 if [ ! -f /etc/app_configured ]; then
     mkdir -p /znc-data/configs
