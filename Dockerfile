@@ -13,10 +13,7 @@ RUN apk add curl bash expect libcap wget
 
 RUN wget https://znc.in/releases/znc-1.7.1.tar.gz
 RUN tar -xzvf znc-1.7.1.tar.gz
-RUN cd znc-1.7.1
-RUN ./configure
-RUN make
-RUN make install
+RUN cd znc-1.7.1 && ./configure && make && make install
 
 RUN mkdir -p /znc-data/configs
 ADD /sources/znc.conf /znc.conf
