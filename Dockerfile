@@ -9,7 +9,8 @@ RUN adduser -D -S -h /znc-data -s /sbin/nologin -G znc znc -u 1000
 
 RUN apk update
 RUN apk add git gdb perl-dev python3-dev swig tcl-dev cyrus-sasl-dev openssl ca-certificates
-RUN apk add curl bash expect libcap wget gcc gcc-c++
+RUN apk add curl bash expect libcap wget
+RUN apk add --update alpine-sdk
 
 RUN wget https://znc.in/releases/znc-1.7.1.tar.gz
 RUN tar -xzvf znc-1.7.1.tar.gz
