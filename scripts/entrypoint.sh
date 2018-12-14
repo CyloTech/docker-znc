@@ -1,13 +1,15 @@
 #!/bin/bash
 set -x
 
-
 if [ ! -f /etc/app_configured ]; then
     mkdir -p /znc-data/configs
-    mv /znc.conf /znc-data/configs/znc.conf
 
-    RAND1=$(echo `</dev/urandom tr -dc A-Za-z0-9 | head -c18`)
-    RAND2=$(echo `</dev/urandom tr -dc A-Za-z0-9 | head -c18`)
+    # If this is not an update....
+    if [ ! -f /znc-data/configs/znc.conf ]; then
+        mv /znc.conf /znc-data/configs/znc.conf
+
+        RAND1=$(echo `</dev/urandom tr -dc A-Za-z0-9 | head -c18`)
+        RAND2=$(echo `</dev/urandom tr -dc A-Za-z0-9 | head -c18`)
 
 echo '#!/usr/bin/expect -f' > /root/${RAND1}
 echo "set timeout -1
@@ -17,22 +19,22 @@ password {send \"${ZNCPASS}\r\" ; exp_continue}
 eof exit
 }" >> /root/${RAND1}
 
-    chmod +x /root/${RAND1}
+        chmod +x /root/${RAND1}
 
-    /root/${RAND1} > /root/${RAND2}
+        /root/${RAND1} > /root/${RAND2}
 
-    HASH=$(cat /root/${RAND2} | grep Hash | awk '{print $3}')
-    SALT=$(cat /root/${RAND2} | grep Salt | awk '{print $3}')
-    SALT="$(cat /root/${RAND2} | grep Salt | awk '{print $3}')"
+        HASH=$(cat /root/${RAND2} | grep Hash | awk '{print $3}')
+        SALT=$(cat /root/${RAND2} | grep Salt | awk '{print $3}')
+        SALT="$(cat /root/${RAND2} | grep Salt | awk '{print $3}')"
 
-    sed -i 's/USER/'${USERNAME}'/g' /znc-data/configs/znc.conf
-    sed -i 's/ZNCPORT/'${ZNCPORT}'/g' /znc-data/configs/znc.conf
-    sed -i 's/ZNCHASH/'${HASH}'/g' /znc-data/configs/znc.conf
-    sed -i 's/ZNCSALT/'${SALT}'/g' /znc-data/configs/znc.conf
+        sed -i 's/USER/'${USERNAME}'/g' /znc-data/configs/znc.conf
+        sed -i 's/ZNCPORT/'${ZNCPORT}'/g' /znc-data/configs/znc.conf
+        sed -i 's/ZNCHASH/'${HASH}'/g' /znc-data/configs/znc.conf
+        sed -i 's/ZNCSALT/'${SALT}'/g' /znc-data/configs/znc.conf
 
-    rm -rf /root/${RAND1}
-    rm -rf /root/${RAND2}
-
+        rm -rf /root/${RAND1}
+        rm -rf /root/${RAND2}
+    fi
     chown -R znc:znc /znc-data
     chmod 700 /znc-data
 
