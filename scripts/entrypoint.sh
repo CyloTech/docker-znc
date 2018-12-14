@@ -22,10 +22,7 @@ eof exit
     HASH=$(cat /root/${RAND2} | grep Hash | awk '{print $3}')
     SALT=$(cat /root/${RAND2} | grep Salt | awk '{print $3}')
 
-    #ZNCPASS=$(echo sha256#${HASH}#${SALT}# | tr -d '\r' | sed -e 's/[\/&]/\\&/g')
-
     sed -i 's/USER/'${USERNAME}'/g' /znc-data/configs/znc.conf
-    #sed -i 's/ZNCPASS/'${ZNCPASS}'/g' /znc-data/configs/znc.conf
     sed -i 's/ZNCPORT/'${ZNCPORT}'/g' /znc-data/configs/znc.conf
     sed -i 's/ZNCHASH/'${HASH}'/g' /znc-data/configs/znc.conf
     sed -i 's/ZNCSALT/'${SALT}'/g' /znc-data/configs/znc.conf
