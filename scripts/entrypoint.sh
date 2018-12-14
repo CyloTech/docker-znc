@@ -9,7 +9,7 @@ if [ ! -f /etc/app_configured ]; then
 
 echo '#!/usr/bin/expect -f' > /root/${RAND1}
 echo "set timeout -1
-spawn /usr/bin/znc --makepass -n
+spawn /usr/local/bin/znc --makepass -n
 expect {
 password {send \"${ZNCPASS}\r\" ; exp_continue}
 eof exit

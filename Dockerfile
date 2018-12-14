@@ -15,6 +15,7 @@ RUN apk add --update alpine-sdk
 RUN wget https://znc.in/releases/znc-1.7.1.tar.gz
 RUN tar -xzvf znc-1.7.1.tar.gz
 RUN cd znc-1.7.1 && ./configure && make && make install
+RUN rm -fr /znc-1.7.1*
 
 RUN mkdir -p /znc-data/configs
 ADD /sources/znc.conf /znc.conf
