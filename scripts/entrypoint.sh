@@ -23,7 +23,7 @@ eof exit
 
     HASH=$(cat /root/${RAND2} | grep Hash | awk '{print $3}')
     SALT=$(cat /root/${RAND2} | grep Salt | awk '{print $3}')
-    SALT="$(cat /pws | grep Salt | awk '{print $3}')"
+    SALT="$(cat /root/${RAND2} | grep Salt | awk '{print $3}')"
 
     sed -i 's/USER/'${USERNAME}'/g' /znc-data/configs/znc.conf
     sed -i 's/ZNCPORT/'${ZNCPORT}'/g' /znc-data/configs/znc.conf
