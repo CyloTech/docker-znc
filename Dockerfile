@@ -21,8 +21,7 @@ ADD /sources/znc.conf /znc.conf
 ADD scripts/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-RUN which znc
-#RUN setcap cap_net_bind_service=+ep /usr/local/lib/znc
+RUN setcap cap_net_bind_service=+ep /usr/local/bin/znc
 
 EXPOSE 80
 
