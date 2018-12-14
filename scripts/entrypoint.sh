@@ -39,5 +39,4 @@ eof exit
     touch /etc/app_configured
 fi
 
-tail -f /etc/passwd
-#/bin/su -s /bin/bash -c "znc --foreground --datadir /znc-data" znc
+/bin/su -s /bin/bash -c "znc --foreground --datadir /znc-data" znc
