@@ -6,6 +6,8 @@ if [ ! -f /etc/app_configured ]; then
 
     # If this is not an update....
     if [ ! -f /znc-data/configs/znc.conf ]; then
+    #The config doesnt exist, so it must be a fresh install.
+
         mv /znc.conf /znc-data/configs/znc.conf
 
         RAND1=$(echo `</dev/urandom tr -dc A-Za-z0-9 | head -c18`)
@@ -34,12 +36,22 @@ eof exit
 
         rm -rf /root/${RAND1}
         rm -rf /root/${RAND2}
+    else
+        # so it is an update/migration!
+        echo "Updating the ZNC Port"
+        sed -ie 's/Port =.*/Port = '${ZNCPORT}'/g' /znc-data/configs/znc.conf
+
     fi
+
+
     chown -R znc:znc /znc-data
     chmod 700 /znc-data
 
     #Tell Apex we're done installing.
-    curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST "https://api.cylo.io/v1/apps/installed/$INSTANCE_ID"
+until [[ $(curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST "https://api.cylo.io/v1/apps/installed/${INSTANCE_ID}" | grep '200') ]]
+    do
+    sleep 5
+done
     touch /etc/app_configured
 fi
 
