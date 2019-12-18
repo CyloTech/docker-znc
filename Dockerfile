@@ -22,6 +22,10 @@ ADD /sources/znc.conf /znc.conf
 ADD scripts/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+RUN mkdir -p /appbox/scripts
+ADD scripts/changepassword.sh /appbox/scripts/changepassword.sh
+RUN chmod +x /appbox/scripts/changepassword.sh
+
 RUN setcap cap_net_bind_service=+ep /usr/local/bin/znc
 
 EXPOSE 80
